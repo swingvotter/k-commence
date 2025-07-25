@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
+const API_URL = import.meta.env.VITE_URL;
+
 // Create the context
 const GlobalContext = createContext();
 
@@ -23,7 +25,7 @@ export default function GlobalState({ children }) {
   // Check user session and fetch user data
   const checkUserSession = async () => {
     try {
-      const response = await axios.get("/api/Auth/me", {
+      const response = await axios.get(`${API_URL}/Auth/me`, {
         withCredentials: true,
       });
 
@@ -52,7 +54,7 @@ export default function GlobalState({ children }) {
   // FETCH PRODUCTS
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(`/api/Product/products`, {
+      const res = await axios.get(`${API_URL}/Product/products`, {
         withCredentials: true,
       });
       const data = res.data.products;
@@ -77,7 +79,7 @@ export default function GlobalState({ children }) {
     }
 
     try {
-      const res = await axios.get(`/api/Cart/getall`, {
+      const res = await axios.get(`${API_URL}/Cart/getall`, {
         withCredentials: true,
       });
 
@@ -112,7 +114,7 @@ export default function GlobalState({ children }) {
 
     try {
       const res = await axios.post(
-        `/api/Cart/add`,
+        `${API_URL}/Cart/add`,
         {
           productId,
           quantity,
@@ -148,7 +150,7 @@ export default function GlobalState({ children }) {
 
     try {
       const res = await axios.patch(
-        `/api/Cart/edit/${productId}`,
+        `${API_URL}/Cart/edit/${productId}`,
         { quantity },
         { withCredentials: true }
       );
@@ -180,7 +182,7 @@ export default function GlobalState({ children }) {
     }
 
     try {
-      const res = await axios.delete(`/api/Cart/delete/${productId}`, {
+      const res = await axios.delete(`${API_URL}/Cart/delete/${productId}`, {
         withCredentials: true,
       });
 

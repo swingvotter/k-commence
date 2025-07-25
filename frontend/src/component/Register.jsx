@@ -4,6 +4,8 @@ import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
+const API_URL = import.meta.env.VITE_URL;
+
 function Register() {
   const [formInput, setInputValue] = useState({
     username: "",
@@ -21,7 +23,7 @@ function Register() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_URL}/Auth/register`,
+        `${API_URL}/Auth/register`,
         formInput,
         { withCredentials: true }
       );

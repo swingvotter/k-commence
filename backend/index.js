@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./config/.env" });
+require("dotenv").config();
 const db = require("./config/db");
 const express = require("express");
 const app = express();
@@ -6,49 +6,56 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const auth = require("./middleware/authMiddleware");
 
-//routers start here
+// Routes
 const userRouter = require("./route/userRoute");
 const productRouter = require("./route/productRoute");
 const cartRouter = require("./route/cartRoute");
 const orderRouter = require("./route/orderRoute");
 
-//middleware start here
-const allowedOrigins = [
-  "http://localhost:5173",
-  process.env.CORS_ORIGIN // This will be your frontend URL in production
-];
-
+// ✅ Use correct cors() middleware
 app.use(
   cors({
-    origin: function(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: "https://kcommence-eta-six-71.vercel.app", // or process.env.CORS_ORIGIN
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   })
 );
 
+// Middleware
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Request logger
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - Origin: ${req.get("origin")}`);
+  next();
+});
+
+// Health check
+app.get("/", (req, res) => {
+  res.status(200).json({ status: "ok", message: "API is running" });
+});
+
+// Routes
 app.use("/api/Auth", userRouter);
 app.use("/api/Product", productRouter);
 app.use("/api/Cart", cartRouter);
 app.use("/api/Order", orderRouter);
 
+// Protected test
 app.get("/test", auth, (req, res) => {
-  return res.status(200).json({ message: "testing" });
+  res.status(200).json({ message: "Protected route success" });
 });
 
-const port = process.env.PORT || 6000;
-
-app.listen(port, () => {
-  console.log(`server started on port ${port}`);
-  db();
-});
+// Server
+const port = process.env.PORT || 3000;
+db()
+  .then(() => {
+    app.listen(port, "0.0.0.0", () => {
+      console.log(`✅ Server started on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ Database connection error:", err);
+    process.exit(1);
+  });

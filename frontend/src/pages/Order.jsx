@@ -3,6 +3,8 @@ import { globalUseContext } from "../state/GlobalState";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_URL;
+
 function Order() {
   const [showAddress, setShowAddress] = React.useState(false);
   const [error, setError] = React.useState("");
@@ -43,7 +45,7 @@ function Order() {
       }
 
       const res = await axios.post(
-        `/api/Order/pay`,
+        `${API_URL}/Order/pay`,
         {},
         { 
           withCredentials: true,

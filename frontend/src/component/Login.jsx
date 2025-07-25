@@ -4,6 +4,8 @@ import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
+const API_URL = import.meta.env.VITE_URL;
+
 function Login() {
   const [formInput, setInputValue] = useState({
     email: "",
@@ -27,7 +29,7 @@ function Login() {
       setLoading(true);
       // Login to get the cookie set
       await axios.post(
-        `/api/Auth/login`,
+        `${API_URL}/Auth/login`,
         formInput,
         { withCredentials: true }
       );
