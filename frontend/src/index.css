@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+body {
+  background-color: #f0edcc;
+}
+
+@theme {
+  --color-deep-col: #02343f;
+  --color-light-col: #f0edcc;
+  --breakpoint-xs: 430px;
+}
