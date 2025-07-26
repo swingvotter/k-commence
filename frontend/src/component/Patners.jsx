@@ -2,8 +2,16 @@ import brand from "../assets/brand/brand";
 
 export default function Patners() {
   return (
-    <section id="Patners" className=" p-2 w-screen overflow-hidden border mt-30 mb-30">
-      <div className="relative w-full">
+    <section className=" p-2 w-screen overflow-hidden border mt-30 mb-30">
+      {/* Patners section */}
+      <div id="Partners">
+        <h1 className="text-3xl font-black">
+          <span className="text-red-500">Partner</span> with us
+        </h1>
+        <p className="text-slate-500 text-[14px]">Entrusted patnership</p>
+      </div>
+
+      <div className=" relative w-full">
         <div className="flex gap-8 animate-marquee">
           {/* Duplicate the brands array */}
           {brand.concat(brand).map((br, i) => (

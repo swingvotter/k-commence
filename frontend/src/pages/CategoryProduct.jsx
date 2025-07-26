@@ -60,7 +60,7 @@ function CategoryProduct() {
                 <p>(4)</p>
               </div>
               <p className="mt-2 font-semibold">{prod.name}</p>
-              <p className="text-gray-600">${prod.price}</p>
+              <p className="text-gray-600">₵{prod.price}</p>
               {/* Button animates on hover */}
               <button
                 onClick={() => console.log("add to cart btn clicked")}

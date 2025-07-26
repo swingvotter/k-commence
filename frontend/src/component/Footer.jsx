@@ -64,7 +64,7 @@ export default function Footer() {
             Contact Us
           </h3>
           <p>Email: support@kcommence.com</p>
-          <p>Phone: +1 (555) 123-4567</p>
+          <p>Phone: +233 553618615</p>
           <p>Address: 123 Commerce St, Business City</p>
 
           {/* Social Icons */}

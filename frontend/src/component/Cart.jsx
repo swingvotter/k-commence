@@ -29,7 +29,7 @@ function Cart() {
   );
 
   return (
-    <div className="relative flex flex-col h-screen max-h-screen px-6 py-10 bg-white">
+    <div className="relative flex flex-col h-screen max-h-screen px-6 py-10 bg-light-col">
       {/* Close Button */}
       <div
         onClick={() => setShowCart(false)}

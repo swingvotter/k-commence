@@ -19,7 +19,7 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedSection, setSelectedSection] = useState("Sections");
 
-  const { setShowModal, setShowCart, user, setUser, setCarts, carts } =
+  const { setShowModal, setShowCart, user, setUser, carts } =
     globalUseContext();
 
   useEffect(() => {
@@ -40,7 +40,6 @@ export default function Navbar() {
     try {
       await axios.post("/api/Auth/logout", {}, { withCredentials: true });
       setUser(null);
-      setCarts([]);
       toast.success("Logged out successfully");
     } catch (error) {
       console.error("Logout error:", error);
@@ -54,6 +53,7 @@ export default function Navbar() {
     { label: "Partners", id: "Partners" },
     { label: "Testimonial", id: "Testimonial" },
     { label: "Shipping", id: "Shipping" },
+    { label: "Contact", id: "Contact" },
   ];
 
   const handleSelectSection = (label, id) => {
@@ -66,7 +66,7 @@ export default function Navbar() {
   return (
     <nav className="border border-slate-100 flex justify-around max-sm:justify-between items-center p-4 bg-light-col sticky top-0 z-50">
       <div className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-500">
-        KCommence
+        <Link to="/">KCommence</Link>
       </div>
 
       {/* Desktop Menu */}
@@ -216,7 +216,7 @@ export default function Navbar() {
                 <Link to="/All-product">All product</Link>
               </li>
               <li className="hover:scale-105 transition-all">
-                <a href="#contact">Contact</a>
+                <a href="#Contact">Contact</a>
               </li>
             </ul>
 
@@ -240,7 +240,7 @@ export default function Navbar() {
               {user ? (
                 <button
                   onClick={handleLogout}
-                  className="p-1 w-36 bg-red-400 cursor-pointer text-[14px] text-white"
+                  className="p-1 w-36 bg-deep-col cursor-pointer text-[14px] text-white"
                 >
                   Logout
                 </button>

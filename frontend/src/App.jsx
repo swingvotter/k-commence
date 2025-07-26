@@ -16,6 +16,7 @@ import { globalUseContext } from "./state/GlobalState";
 import Modal from "./component/Modal";
 import Cart from "./component/Cart";
 import Order from "./pages/Order";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const { showModal, showCart } = globalUseContext();
@@ -44,6 +45,7 @@ function App() {
           <Route path="/All-product" element={<AllPrdoucts />} />
           <Route path="/:categoryId/products" element={<CategoryProduct />} />
           <Route path="/order" element={<Order />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         {showModal && (
           <div className="w-full h-full z-150 fixed top-0 left-0">

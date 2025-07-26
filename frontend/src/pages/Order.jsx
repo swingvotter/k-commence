@@ -11,6 +11,8 @@ function Order() {
   const { carts, updateCartQuantity, deleteCart, user } = globalUseContext();
   const navigate = useNavigate();
 
+  const totalItems = carts?.[0]?.totalCartItems || 0;
+
   React.useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -47,14 +49,14 @@ function Order() {
       const res = await axios.post(
         `${API_URL}/Order/pay`,
         {},
-        { 
+        {
           withCredentials: true,
           headers: {
-            'Content-Type': 'application/json'
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
-      
+
       if (res.data?.paymentUrl) {
         window.location.href = res.data.paymentUrl;
       }
@@ -64,7 +66,10 @@ function Order() {
         setError("Please login again to continue");
         navigate("/login");
       } else {
-        setError(error.response?.data?.message || "Failed to place order. Please try again.");
+        setError(
+          error.response?.data?.message ||
+            "Failed to place order. Please try again."
+        );
       }
     }
   };
@@ -88,9 +93,7 @@ function Order() {
       <div className="flex-1 max-w-4xl">
         <h1 className="text-3xl font-medium mb-6">
           Shopping Cart{" "}
-          <span className="text-sm text-indigo-500">
-            {carts[0]?.items?.length} Items
-          </span>
+          <span className="text-sm text-indigo-500">{totalItems} Items</span>
         </h1>
 
         <div className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 text-base font-medium pb-3">
@@ -247,11 +250,7 @@ function Order() {
           </p>
         </div>
 
-        {error && (
-          <div className="text-red-500 text-sm mt-2 mb-4">
-            {error}
-          </div>
-        )}
+        {error && <div className="text-red-500 text-sm mt-2 mb-4">{error}</div>}
 
         <button
           onClick={handlePlaceOrder}
